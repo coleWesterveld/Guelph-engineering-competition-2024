@@ -3,10 +3,16 @@ import 'package:table_calendar/table_calendar.dart';
 import 'user.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
 
+import 'csv_parser.dart';
 
 class Event{
   final String title;
   Event(this.title);
+}
+class MeetingDataSource extends CalendarDataSource {
+  MeetingDataSource(List<Appointment> source) {
+    appointments = source;
+  }
 }
 
 int daysBetween(DateTime from, DateTime to) {
@@ -32,56 +38,52 @@ class _MyScheduleState extends State<SchedulePage> {
   DateTime? _selectedDay;
   late final ValueNotifier<List<Event>> _selectedEvents;
 
-  void loadEvents(){
-    //
-  }
+  List<Appointment> getstuff = []; // Move getstuff to class-level
+
+  late MeetingDataSource _dataSource; // Make the data source a state property
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _selectedDay = today;
-    //_selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
-    //loadEvents();
+
+    // Initialize the data source with the empty getstuff list
+    _dataSource = MeetingDataSource(getstuff);
   }
 
-  List<Event> _getEventsForDay (DateTime day){
-    //get events for that day to display
-    //for not, always just says there is an event every day
-    return [Event("Sample Event")];
-  }
+  List<Appointment> getAppointments() {
+    List<Appointment> meetings = <Appointment>[];
+    final DateTime today = DateTime.now();
+    final DateTime startTime =
+        DateTime(today.year, today.month, today.day, 9, 0, 0);
+    final DateTime endTime = startTime.add(const Duration(hours: 2));
 
-  void _onDaySelected(DateTime selectedDay, DateTime focusedDay){
-    if (!isSameDay(_selectedDay, selectedDay)){
-      setState((){
-        _selectedDay = selectedDay;
-        today = focusedDay;
-        _selectedEvents.value = _getEventsForDay(selectedDay);
-      });
-      
-    }
-  }
+    meetings.add(Appointment(
+        startTime: startTime,
+        endTime: endTime,
+        subject: 'Board Meeting',
+        color: Colors.blue,
+        recurrenceRule: 'FREQ=DAILY;COUNT=10',
+        isAllDay: false));
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    // Safe to access context.watch<Profile>() here
-    _selectedEvents = ValueNotifier(_getEventsForDay(_selectedDay!));
-    loadEvents(); // You can call loadEvents() here as well, if needed
+    return meetings;
   }
 
   @override
-  // main scaffold, putting it all together
   Widget build(BuildContext context) {
-
-    
+    List<String> courses = [
+      "CIS*2500",
+      "CIS*2520",
+      "CIS*2910",
+      "STAT*2040",
+      "CIS*2430",
+      "MATH*1200",
+      "FRHD*1100",
+      "CIS*1050",
+      "MCS*1000",
+    ];
 
     return Scaffold(
-      
- 
-
-      
-
-      //bottomNavigationBar: weekView(),
       body: Row(
         children: [
           SizedBox(
@@ -89,26 +91,43 @@ class _MyScheduleState extends State<SchedulePage> {
             child: ListView.separated(
               separatorBuilder: (_, __) => Divider(),
               scrollDirection: Axis.vertical,
-              itemCount: 20,
+              itemCount: courses.length, // Use the length of the outer list
               itemBuilder: (context, index) {
-                return ListTile(
-                  title: Text("Sample Title"), 
-                  leading: Icon(Icons.book)
-                  );
-              }
+                String text = courses[index];
+
+                return InkWell(
+                  onTap: () {},
+                  onHover: (isHovering) {
+                    if (isHovering) {
+                      setState(() {
+                        // Update the list of appointments on hover
+                        getstuff = getAppointments();
+
+                        // Notify the calendar that the appointments have changed
+                        _dataSource.appointments = getstuff;
+                        _dataSource.notifyListeners(CalendarDataSourceAction.reset, getstuff);
+                      });
+                    }
+                  },
+                  child: ListTile(
+                    hoverColor: Colors.black,
+                    title: Text(text),
+                    leading: Icon(Icons.book),
+                  ),
+                );
+              },
             ),
           ),
-          //ListView.builder(){} //this will come later
+          // Calendar that updates when getstuff changes
           SizedBox(
             width: MediaQuery.of(context).size.width - 400,
             child: SfCalendar(
               view: CalendarView.week,
+              dataSource: _dataSource, // Use the data source here
             ),
           ),
         ],
       ),
-
-      
     );
   }
 }

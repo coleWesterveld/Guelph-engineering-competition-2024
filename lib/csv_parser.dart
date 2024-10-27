@@ -77,8 +77,8 @@ List<List<dynamic>> converCSV(List<List<dynamic>> courseList) {
   return hour24List;
 }
 
-void main() async {
-  List<List<dynamic>> courseList = await oCSV();
-  List<List<dynamic>> hour24List = converCSV(courseList);
-  print(hour24List);
-}
+// void main() async {
+//   List<List<dynamic>> courseList = await oCSV();
+//   List<List<dynamic>> hour24List = converCSV(courseList);
+//   //print(hour24List);
+// }

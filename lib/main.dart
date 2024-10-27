@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'user.dart';
 import 'schedule_page.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp( NavigationBarApp());
@@ -126,8 +127,8 @@ class _NavigationExampleState extends State<NavigationExample> {
         //different pages that can be navigated to
         destinations: const <Widget>[
           NavigationDestination(
-            selectedIcon: Icon(Icons.fitness_center),
-            icon: Icon(Icons.fitness_center_outlined),
+            selectedIcon: Icon(Icons.calendar_today),
+            icon: Icon(Icons.calendar_today_outlined),
             label: 'Schedule',
           ),
           NavigationDestination(
