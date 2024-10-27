@@ -106,7 +106,7 @@ class _NavigationExampleState extends State<NavigationExample> {
       resizeToAvoidBottomInset : false,
       appBar: AppBar(
           backgroundColor: Profile.palette[0],
-          title: Text("Courselink 2"),
+          title: Text("Web Mentor"),
         ),
       
       bottomNavigationBar: NavigationBar(

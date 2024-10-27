@@ -5,6 +5,7 @@ import 'package:syncfusion_flutter_calendar/calendar.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 import 'csv_parser.dart';
 
+
 class Event{
   final String title;
   Event(this.title);
@@ -112,7 +113,7 @@ class _MyScheduleState extends State<SchedulePage> {
       meetings.add(
         Appointment(
           startTime: DateTime(today.year, today.month, today.day + days, hours, minutes),
-          endTime: DateTime(today.year, today.month, today.day + days, hours + 2, minutes),
+          endTime: DateTime(today.year, today.month, today.day + days, hours + (hours != 0 ? 2 : 0), minutes),
           subject: courses[index],
           color: Color(0x99505050),
           isAllDay: false,
@@ -130,6 +131,7 @@ class _MyScheduleState extends State<SchedulePage> {
 
     return Scaffold(
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
         child: Text("Clear"),
         onPressed: (){setState(() {
           colorpick = Colors.red;
@@ -164,7 +166,7 @@ class _MyScheduleState extends State<SchedulePage> {
                       // Check if any appointment in display overlaps with the new one
                       for (var existingMeeting in display) {
                         if (newMeeting.startTime.isBefore(existingMeeting.endTime) &&
-                            newMeeting.endTime.isAfter(existingMeeting.startTime)) {
+                            newMeeting.endTime.isAfter(existingMeeting.startTime) && newMeeting.startTime.hour != 0) {
                           hasOverlap = true;
                           break;
                         }
