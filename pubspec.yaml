@@ -38,6 +38,7 @@ dependencies:
   table_calendar: ^3.1.2
   provider: ^6.1.2
   syncfusion_flutter_calendar: ^27.1.56
+  csv: ^6.0.0
 
 dev_dependencies:
   flutter_test:
