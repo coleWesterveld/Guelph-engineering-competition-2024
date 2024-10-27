@@ -69,6 +69,7 @@ class _MainPage extends State<NavigationBarApp> {
           ),
       ],
       child: MaterialApp(
+        title: "GEC Course Picker",
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
           snackBarTheme: SnackBarThemeData(

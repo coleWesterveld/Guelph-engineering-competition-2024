@@ -76,16 +76,7 @@ class _MyScheduleState extends State<SchedulePage> {
     
 
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Profile.palette[1],
-        centerTitle: true,
-        title: const Text(
-          "Planner",
-          style: TextStyle(
-            fontWeight: FontWeight.w900,
-          ),
-          ),
-      ),
+      
  
 
       
