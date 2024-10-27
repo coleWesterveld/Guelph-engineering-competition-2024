@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'user.dart';
 import 'schedule_page.dart';
-//importing pages
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   runApp( NavigationBarApp());
@@ -89,7 +87,7 @@ class _MainPage extends State<NavigationBarApp> {
 }
 
 class NavigationExample extends StatefulWidget {
-  NavigationExample({super.key,});
+  const NavigationExample({super.key,});
   
   @override
   _NavigationExampleState createState() => _NavigationExampleState();
