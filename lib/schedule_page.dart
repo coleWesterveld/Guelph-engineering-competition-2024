@@ -93,8 +93,27 @@ class _MyScheduleState extends State<SchedulePage> {
       //bottomNavigationBar: weekView(),
       body: Row(
         children: [
+          SizedBox(
+            width: 400,
+            child: ListView.separated(
+              separatorBuilder: (_, __) => Divider(),
+              scrollDirection: Axis.vertical,
+              itemCount: 20,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text("Sample Title"), 
+                  leading: Icon(Icons.book)
+                  );
+              }
+            ),
+          ),
           //ListView.builder(){} //this will come later
-          SfCalendar(),
+          SizedBox(
+            width: MediaQuery.of(context).size.width - 400,
+            child: SfCalendar(
+              view: CalendarView.week,
+            ),
+          ),
         ],
       ),
 
