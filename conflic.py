@@ -13,8 +13,6 @@ def oCSV() :
 
 def converTo24Hour(curDay,timeSTR) :
 
-    print(curDay,timeSTR)
-
     hour, minute = timeSTR.split(":")
 
     period = minute[-2:]
@@ -32,8 +30,6 @@ def converTo24Hour(curDay,timeSTR) :
     for day in days:
         
         if str(curDay).strip() == str(day[0]):
-            print("sucess")
-            print(hour,)
             hour += day[1]
 
     return f'{hour:02}:{minute:02}'
@@ -44,12 +40,9 @@ def converCSV(courseList) :
         temp_list = []
         temp_list.append(item1[0])
         for entry in item1:
-            print(entry)
             if '|' in entry: 
                 day, times = entry.split("|")
                 startTime,endTime = times.split("-")
-
-                print(startTime,endTime)
 
                 temp_list.append(converTo24Hour(day,startTime))
                 temp_list.append(converTo24Hour(day,endTime))
