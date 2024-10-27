@@ -1,0 +1,1 @@
+ /Users/colewesterveld/Desktop/Coding\ Projects/GEC2024/Guelph-engineering-competition-2024/.dart_tool/flutter_build/c7d9232b64a6788b5ff0c72141b1e1cc/native_assets.yaml: 
